@@ -10,6 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BaseRequest extends FormRequest
 {
+    public const EQUAL = '=';
+    public const GREATER_THAN = '>';
+    public const LESS_THAN = '<';
+    public const GREATER_THAN_OR_EQUAL = '>=';
+    public const LESS_THAN_OR_EQUAL = '<=';
+    public const NOT_EQUAL = '<>';
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -37,6 +44,11 @@ class BaseRequest extends FormRequest
             'max' => 'The :attribute may not be greater than :max characters.',
             'min' => 'The :attribute must be at least :min characters.',
             'unique' => 'The :attribute has already been taken.',
+            'date' => 'The :attribute must be a valid date.',
+            'in' => 'The selected :attribute is invalid.',
+            'integer' => 'The :attribute must be an integer.',
+            'numeric' => 'The :attribute must be a number.',
+            'array' => 'The :attribute must be an array.',
         ];
     }
 
