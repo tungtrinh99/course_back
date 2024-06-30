@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Helpers\BaseResponse;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ForgotPasswordRequest;
 use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegisterRequest;
@@ -11,15 +13,14 @@ use App\Http\Resources\User\UserResource;
 use App\Mail\ForgotPassword;
 use App\Mail\VerifyEmail;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Symfony\Component\HttpFoundation\Response;
 use App\Services\AuthService;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
-use App\Http\Requests\User\ChangePasswordRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {

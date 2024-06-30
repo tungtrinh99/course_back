@@ -4,6 +4,8 @@ namespace App\Helpers;
 
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Pagination\AbstractPaginator;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class BaseResponse
 {
@@ -26,6 +28,17 @@ class BaseResponse
             'message' => $message,
             'data' => $data,
         ];
+
+        if ($data instanceof AnonymousResourceCollection && $data->resource instanceof AbstractPaginator) {
+            $pagination = [
+                'total' => $data->total(),
+                'per_page' => $data->perPage(),
+                'current_page' => $data->currentPage(),
+                'total_pages' => $data->lastPage(),
+            ];
+
+            $response['pagination'] = $pagination;
+        }
 
         return response()->json($response, $status);
     }

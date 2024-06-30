@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\CourseController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,13 @@ Route::prefix('user')->group(function () {
             Route::get('me', [AuthController::class, 'me']);
         });
     });
+
+    Route::middleware('jwt.auth')->group(function () {
+        // courses routes
+        Route::prefix('courses')->group(function () {
+            Route::get('/', [CourseController::class, 'index']);
+            Route::get('{id}', [CourseController::class, 'show']);
+        });
+    });
+    // course routes
 });
