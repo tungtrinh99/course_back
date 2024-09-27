@@ -39,6 +39,7 @@ Route::prefix('user')->group(function () {
         // courses routes
         Route::prefix('courses')->group(function () {
             Route::get('/', [CourseController::class, 'index']);
+            Route::get('favourites', [CourseController::class, 'getFavouriteCourses']);
             Route::get('{id}', [CourseController::class, 'show']);
         });
     });

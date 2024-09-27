@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -13,6 +14,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(10)->create();
+        User::query()->create([
+            'name' => 'Tung Trinh',
+            'email' => 'tungtrinh@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'address' => fake()->address,
+            'phone_number' => fake()->phoneNumber,
+            'birthday' => fake()->date,
+        ]);
     }
 }

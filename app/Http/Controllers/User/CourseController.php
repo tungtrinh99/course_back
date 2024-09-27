@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Helpers\BaseResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\GetCoursesRequest;
+use App\Http\Requests\User\GetFavouriteCoursesRequest;
 use App\Http\Resources\User\CourseResource;
 use Illuminate\Support\Facades\Log;
 use App\Services\CourseService;
@@ -13,9 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CourseController extends Controller
 {
-    protected $courseService;
+    protected CourseService $courseService;
 
-    public function __construct(CourseService $courseService)
+    public function __construct(
+        CourseService $courseService
+    )
     {
         $this->courseService = $courseService;
     }
@@ -56,6 +59,26 @@ class CourseController extends Controller
             Log::error($e);
 
             return BaseResponse::error($e->getMessage(), null, Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    /**
+     * Get favourite courses.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getFavouriteCourses(GetFavouriteCoursesRequest $request)
+    {
+        try {
+            $data = $this->courseService->getFavouriteCourses($request->all());
+
+            return BaseResponse::success(CourseResource::collection($data));
+        } catch (\Exception $e) {
+            Log::error($e);
+
+            return BaseResponse::error($e->getMessage(), null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

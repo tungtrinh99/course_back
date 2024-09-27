@@ -21,4 +21,8 @@ class Course extends Model
     {
         return $this->belongsTo(Instructor::class);
     }
+
+    public function favouriteCourses() {
+        return $this->hasMany(FavouriteCourse::class);
+    }
 }

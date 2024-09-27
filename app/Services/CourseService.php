@@ -6,7 +6,7 @@ use App\Repositories\CourseRepository;
 
 class CourseService
 {
-    protected $courseRepository;
+    protected CourseRepository $courseRepository;
 
     public function __construct(CourseRepository $courseRepository)
     {
@@ -21,5 +21,10 @@ class CourseService
     public function findOneCourse($id)
     {
         return $this->courseRepository->findOrFail($id);
+    }
+
+    public function getFavouriteCourses($attributes)
+    {
+        return $this->courseRepository->getFavouriteCourses($attributes);
     }
 }
