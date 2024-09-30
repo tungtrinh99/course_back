@@ -11,6 +11,7 @@ use App\Http\Requests\User\RegisterRequest;
 use App\Http\Requests\User\ResetPasswordRequest;
 use App\Http\Resources\User\UserResource;
 use App\Mail\ForgotPassword;
+use App\Mail\RegisterAccountNotification;
 use App\Mail\VerifyEmail;
 use App\Models\User;
 use App\Services\AuthService;
@@ -44,7 +45,8 @@ class AuthController extends Controller
             'verification.verify', now()->addMinutes(60), ['id' => $user->id, 'hash' => Hash::make($user->email)]
         );
 
-        Mail::to($user->email)->send(new VerifyEmail($user, $verificationUrl));
+        Mail::to($user->email)->queue(new VerifyEmail($user, $verificationUrl));
+//        Mail::to($user->email)->queue(new RegisterAccountNotification($user));
     }
 
     /**
